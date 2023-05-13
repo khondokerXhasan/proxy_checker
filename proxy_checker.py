@@ -1,12 +1,14 @@
 import requests,json,sys,os,random,time
 from concurrent.futures import ThreadPoolExecutor as tred
 from datetime import datetime
-ses=requests.Session()
-#pip install pysocks 
+
+
 class proxy_checker():
 
     def __init__(self):
-        os.system('xdg-open https://github.com/khondokerxhasan')
+        
+	self.ses=requests.Session()
+	os.system('xdg-open https://github.com/khondokerxhasan')
         os.system('xdg-open https://www.facebook.com/khondokerxhasan')
         self.loop=0
         self.ok=0
@@ -15,7 +17,8 @@ class proxy_checker():
         self.select()
                 
     def logo(self):
-        os.system('clear')
+        
+	os.system('clear')
         print('\t\x1b[38;5;129m ____   ____    ___  __  ____   __')
         print('\t\x1b[38;5;129m|  _ \ |  _ \  / _ \ \ \/ /\ \ / /')
         print('\t\x1b[38;5;129m| |_) || |_) || | | | \  /  \ V /')
@@ -28,7 +31,8 @@ class proxy_checker():
         print()    
     
     def select(self):
-        self.logo()
+        
+	self.logo()
         print('\t\x1b[1;93m[\x1b[1;92m1\x1b[1;93m] \x1b[1;93mCheck Socks4')
         print('\t\x1b[1;93m[\x1b[1;92m2\x1b[1;93m] \x1b[1;93mCheck Sock5')
         print('\t\x1b[1;93m[\x1b[1;92m3\x1b[1;93m] \x1b[1;93mDump Proxy')
@@ -41,11 +45,13 @@ class proxy_checker():
         else:print('\x1b[1;90m\t Invalid option ');time.sleep(1)       
     
     def socks4(self):
-        try:yy=input('\n\t\x1b[1;93m[\x1b[1;92m+\x1b[1;93m] Socks4 File : \x1b[1;92m');non=open(yy,'r').read().splitlines();self.socks4_checker(non)
+        
+	try:yy=input('\n\t\x1b[1;93m[\x1b[1;92m+\x1b[1;93m] Socks4 File : \x1b[1;92m');non=open(yy,'r').read().splitlines();self.socks4_checker(non)
         except FileNotFoundError:print('\n\t\x1b[1;93m[\x1b[1;91m!\x1b[1;93m] \x1b[1;91mFile Not Found !' );time.sleep(1);os.system('clear');self.logo();self.socks4()
     
     def socks4_checker(self,non):
-        os.system('clear')
+        
+	os.system('clear')
         print('\t\x1b[38;5;29m[      IP       -   Country   ]')
         print('\t\x1b[1;94m--------------------------------')
         with tred(max_workers=50) as khondoker_x_hasan:
@@ -53,11 +59,12 @@ class proxy_checker():
 	            khondoker_x_hasan.submit(self.run,str(isi))
     
     def run(self,isi):
-        sys.stdout.write('\r\r\t\033[1;37m [SOCKS-4] %s|\033[1;33mActive: - \x1b[1;92m %s\r\r'%(self.loop,self.ok));sys.stdout.flush()
+        
+	sys.stdout.write('\r\r\t\033[1;37m [SOCKS-4] %s|\033[1;33mActive: - \x1b[1;92m %s\r\r'%(self.loop,self.ok));sys.stdout.flush()
         self.loop+=1
         try:
-	        socks4 = {"https": f"socks4://{isi}"}
-	        data = ses.get("https://ipinfo.io/json",proxies=socks4,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
+	        socks4 = {"https": f"socks4://{isi}","http": f"socks4://{isi}"}
+	        data = self.ses.get("https://ipinfo.io/json",proxies=socks4,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
 	        country=data["country"]
 	        ip=data["ip"]
 	        print('\t\033[1;92m  '+str(ip)+'   -   \033[1;93m'+str(country)+'\033            ')
@@ -70,21 +77,24 @@ class proxy_checker():
         except Exception as e:pass
     
     def socks5(self):
-        try:yy=input('\n\t\x1b[1;93m[\x1b[1;92m+\x1b[1;93m] Socks5 File : \x1b[1;92m');non=open(yy,'r').read().splitlines();self.socks5_checker(non)
+        
+	try:yy=input('\n\t\x1b[1;93m[\x1b[1;92m+\x1b[1;93m] Socks5 File : \x1b[1;92m');non=open(yy,'r').read().splitlines();self.socks5_checker(non)
         except FileNotFoundError:print('\n\t\x1b[1;93m[\x1b[1;91m!\x1b[1;93m] \x1b[1;91mFile Not Found !' );time.sleep(1);os.system('clear');self.logo();self.socks5()
         
     def socks5_checker(self,non):
-        os.system('clear')
+        
+	os.system('clear')
         print('\t\x1b[38;5;29m[      IP       -   Country   ]')
         print('\t\x1b[1;94--------------------------------')
         with tred(max_workers=50) as khondoker_x_hasan:
 	        for isi in non:
 	            khondoker_x_hasan.submit(self.run1,str(isi))
     def run1(self,isi):
-        sys.stdout.write('\r\r\t\033[1;37m [SOCKS-5] %s|\033[1;33mActive: - \x1b[1;92m %s\r\r'%(self.loop,self.ok));sys.stdout.flush()
+        
+	sys.stdout.write('\r\r\t\033[1;37m [SOCKS-5] %s|\033[1;33mActive: - \x1b[1;92m %s\r\r'%(self.loop,self.ok));sys.stdout.flush()
         self.loop+=1
         try:
-	        socks5 = {"https": f"socks5://{isi}"}
+	        socks5 = {"https": f"socks5://{isi}","http": f"socks4://{isi}"}
 	        ses=requests.Session()
 	        data = ses.get("https://ipinfo.io/json",proxies=socks5,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
 	        country=data["country"]
@@ -99,7 +109,8 @@ class proxy_checker():
         except Exception as e:pass
     
     def dump_proxy(self):
-        link_prox=[
+        
+	link_prox=[
             "https://raw.githubusercontent.com/saschazesiger/Free-Proxies/master/proxies/socks4.txt",
             "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-socks4.txt",
             "https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks4&timeout=10000&country=all",
@@ -137,13 +148,13 @@ class proxy_checker():
         print('\n\t\x1b[1;93m[\x1b[1;92m DUMPING SOCKS-4 \x1b[1;93m]')
         open("dump/socks4.txt","w").flush()
         for link in link_prox:
-            all_prox = requests.get(link).text
+            all_prox = self.ses.get(link).text
             open("dump/socks4.txt","a").write(str(all_prox)+'\n')
         
         print('\n\t\x1b[1;93m[\x1b[1;92m DUMPING SOCKS-5 \x1b[1;93m]')
         open("dump/socks5.txt","w").flush()
         for linkz in link_proxz:
-            all_proxz = requests.get(linkz).text
+            all_proxz = self.ses.get(linkz).text
             open("dump/socks5.txt","a").write(str(all_proxz)+'\n')
         print('\n\t\x1b[1;93m[ \x1b[1;94mSocks4 saved in : \x1b[1;92mdump/socks4.txt \x1b[1;93m]')
         print('\t\x1b[1;93m[ \x1b[1;94mSocks4 saved in : \x1b[1;92mdump/socks5.txt \x1b[1;93m]')
