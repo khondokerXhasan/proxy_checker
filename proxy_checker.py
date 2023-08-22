@@ -61,7 +61,7 @@ class proxy_checker():
 	        data = ses.get("https://ipinfo.io/json",proxies=socks4,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
 	        country=data["country"]
 	        ip=data["ip"]
-	        print('\t\033[1;92m  '+str(ip)+'   -   \033[1;93m'+str(country)+'\033            ')
+	        print('\t\x1b[38;5;118m  %s%s:   \x1b[38;5;129m%s       '%(ip,' '*(24-len(ip)),country))
 	        ses.close()
 	        os.system(f'touch proxy/{self.now}_active_socks4.txt')
 	        y=open(f'proxy/{self.now}_active_socks4.txt','r').read()
@@ -91,7 +91,7 @@ class proxy_checker():
 	        data = ses.get("https://ipinfo.io/json",proxies=socks5,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
 	        country=data["country"]
 	        ip=data["ip"]
-	        print('\t\033[1;92m  '+str(ip)+'   -   \033[1;93m'+str(country)+'\033            ')
+	        print('\t\x1b[38;5;118m  %s%s:   \x1b[38;5;129m%s       '%(ip,' '*(24-len(ip)),country))
 	        ses.close()
 	        os.system(f'touch proxy/{self.now}_active_socks5.txt')
 	        y=open(f'proxy/{self.now}_active_socks5.txt','r').read()
