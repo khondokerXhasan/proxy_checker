@@ -7,9 +7,9 @@ class proxy_checker():
 
     def __init__(self):
         os.system('xdg-open https://github.com/khondokerxhasan')
-        self.ses=requests.Session()
         self.loop=0
         self.ok=0
+        self.ses=requests.Session()
         self.ua=random.choice(['Mozilla/5.0 (Linux; Android 11; A600DL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.50 Mobile Safari/537.36','Mozilla/5.0 (Linux; Android 10; SM-A920F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Mobile Safari/537.36','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15','Mozilla/5.0 (Linux; arm_64; Android 8.1.0; ZC520KL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.96 YaBrowser/20.4.1.144.00 SA/1 Mobile Safari/537.36','Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.110 Mobile Safari/537.36','Mozilla/5.0 (X11; CrOS i686 6310.61.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.94 Safari/537.36','Mozilla/5.0 (Linux; Android 7.0; Ilium M1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Mobile Safari/537.36','Mozilla/5.0 (Linux; Android 7.0; A10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Mobile Safari/537.36','Mozilla/5.0 (Linux; Android 8.0.0; XT1635-01 Build/ODNS27.76-12-30-8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.137 Mobile Safari/537.36'])
         self.now=datetime.now().strftime("%d-%B-%Y")
         self.select()
@@ -38,7 +38,7 @@ class proxy_checker():
         elif option =='2': self.socks5()
         elif option =='3': self.dump_proxy()
         elif option=='0':exit('')
-        else:print('\x1b[1;90m\t Invalid option ');time.sleep(1)       
+        else:print('\n\x1b[1;91m\t ⚠ \x1b[1;93mInvalid option.\x1b[0m');time.sleep(1);self.select()     
     
     def socks4(self):
         try:yy=input('\n\t\x1b[1;93m[\x1b[1;92m+\x1b[1;93m] Socks4 File : \x1b[1;92m');non=open(yy,'r').read().splitlines();self.socks4_checker(non)
@@ -57,7 +57,8 @@ class proxy_checker():
         self.loop+=1
         try:
 	        socks4 = {"https": f"socks4://{isi}","http": f"socks4://{isi}"}
-	        data = self.ses.get("https://ipinfo.io/json",proxies=socks4,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
+	        ses=requests.Session()
+	        data = ses.get("https://ipinfo.io/json",proxies=socks4,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
 	        country=data["country"]
 	        ip=data["ip"]
 	        print('\t\033[1;92m  '+str(ip)+'   -   \033[1;93m'+str(country)+'\033            ')
@@ -67,6 +68,7 @@ class proxy_checker():
 	        if str(isi) not in str(y):open(f'proxy/{self.now}_active_socks4.txt','a').write(str(isi)+'\n')
 	        else:pass
 	        self.ok+=1
+	        
         except Exception as e:pass
     
     def socks5(self):
@@ -86,7 +88,7 @@ class proxy_checker():
         try:
 	        socks5 = {"https": f"socks5://{isi}","http": f"socks5://{isi}"}
 	        ses=requests.Session()
-	        data = self.ses.get("https://ipinfo.io/json",proxies=socks5,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
+	        data = ses.get("https://ipinfo.io/json",proxies=socks5,timeout=5,headers={'User-Agent':f'{self.ua}'}).json()
 	        country=data["country"]
 	        ip=data["ip"]
 	        print('\t\033[1;92m  '+str(ip)+'   -   \033[1;93m'+str(country)+'\033            ')
