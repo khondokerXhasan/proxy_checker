@@ -7,6 +7,7 @@ class proxy_checker():
 
     def __init__(self):
         os.system('xdg-open https://github.com/khondokerxhasan')
+        os.system('pip install PySocks')
         self.loop=0
         self.ok=0
         self.ses=requests.Session()
@@ -139,14 +140,14 @@ class proxy_checker():
         print('\n\t\x1b[1;93m[\x1b[1;92m DUMPING SOCKS-4 \x1b[1;93m]')
         open("dump/socks4.txt","w").flush()
         for link in link_prox:
-            all_prox = self.ses.get(link).text
-            open("dump/socks4.txt","a").write(str(all_prox)+'\n')
+            try:all_prox = self.ses.get(link,timeout=5).text;open("dump/socks4.txt","a").write(str(all_prox)+'\n')
+            except:pass
         
         print('\n\t\x1b[1;93m[\x1b[1;92m DUMPING SOCKS-5 \x1b[1;93m]')
         open("dump/socks5.txt","w").flush()
         for linkz in link_proxz:
-            all_proxz = self.ses.get(linkz).text
-            open("dump/socks5.txt","a").write(str(all_proxz)+'\n')
+            try:all_proxz = self.ses.get(linkz,timeout=5).text;open("dump/socks5.txt","a").write(str(all_proxz)+'\n')
+            except:pass
         print('\n\t\x1b[1;93m[ \x1b[1;94mSocks4 saved in : \x1b[1;92mdump/socks4.txt \x1b[1;93m]')
         print('\t\x1b[1;93m[ \x1b[1;94mSocks4 saved in : \x1b[1;92mdump/socks5.txt \x1b[1;93m]')
         os.system('xdg-open https://www.facebook.com/khondokerxhasan')
